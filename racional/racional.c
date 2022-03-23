@@ -8,6 +8,8 @@
 #include <assert.h>
 #include "racional.h"
 
+#define EPS 1e-9
+
 /* 
  * As funções que iniciam com letra MINÚSCULA são referentes as funções que pre-
  * encheram a VTBL, enquanto que as que começam com letra MAIÚSCULA fazem parte
@@ -77,9 +79,6 @@ static racional_pt      Ac_divisao       (racional_t       * const rac1,
 static racional_pt      Potencia	 (racional_t       * const rac,
                                             int potencia);
 static long double      Modulo		 (racional_t const * const rac);
-    
-static long double      ModuloRaiz       (racional_t const * const rac,
-                                          int raiz);
 static int              Compara          (racional_t const * const rac1, 
                                             racional_t const * const rac2);								 
 static int              EhNulo           (racional_t const * const rac);
@@ -152,7 +151,6 @@ racional_pt constroiRacional (long int num, long int den){
         &DefineNumerador,
         &DefineDenominador,
         &Modulo,
-        //&ModuloRaiz,
         &Imprime,
         &Destroi
     };
@@ -464,10 +462,7 @@ static int                  compara         (numero_t const * const  num1,
     r1 = ((racional_pt)num1)->numerador / ((racional_pt)num1)->denominador;
     r2 = ((racional_pt)num2)->numerador / ((racional_pt)num2)->denominador;
     
-    //if(((racional_pt)num1)->numerador == ((racional_pt)num2)->numerador &&
-    //   ((racional_pt)num1)->denominador == ((racional_pt)num2)->denominador)
-    
-    if(r1 == r2)
+    if(fabs(r1 - r2) <= EPS)
         return 0;
     else if(r1 > r2)
         return 1;
@@ -532,18 +527,6 @@ static long double          Modulo          (racional_t const * const rac){
     
     return r;
 }
-    
-/*static long double          ModuloRaiz      (racional_t const * const rac,
-                                             int raiz){
-    
-    assert(rac != NULL);
-    
-    long double r, num, den;
-    num = pow(rac->numerador, ((float)1/raiz));
-    den = pow(rac->denominador, ((float)1/raiz));
-    r = num / den;
-    return r;
-}*/
 
 static void                 Reduz           (racional_t       * const rac){
     
