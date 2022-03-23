@@ -504,15 +504,15 @@ int             compara                 (matriz_t const * const  mat1,
      * ambas as matrizes, retorna 0 se forem diferentes e retorna -1 se as
      * matrizes forem distintas por terem dimensões diferentes 
      */
-    
+    const double EPS = 1e-9;
     if(ComparaDimensoes((matrizDoub_pt)mat1, (matrizDoub_pt)mat2) <= 0)
         return -1;
     else{
         for(int i = 0; i < ((matrizDoub_pt)mat1)->tamanho[LINHA]; i++){
             for(int j = 0; j < ((matrizDoub_pt)mat1)->tamanho[COLUNA]; j++){
                 
-                if(((matrizDoub_pt)mat1)->valor[i][j] != 
-                   ((matrizDoub_pt)mat2)->valor[i][j]) return 0;      
+                if( fabs( ((matrizDoub_pt)mat1)->valor[i][j] - 
+                   ((matrizDoub_pt)mat2)->valor[i][j] )  > EPS) return 0;      
             }
         }
         return 1;
