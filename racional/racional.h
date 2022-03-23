@@ -95,9 +95,6 @@ struct racional_interface {
     
     long double     (*modulo)		(racional_t const * const rac);
     
-    //long double     (*moduloRaiz)       (racional_t const * const rac,
-    //                                     int raiz);
-    
     char *          (*imprime)		(racional_t const * const rac);
     
     void            (*destroi)		(racional_t       *       rac);
@@ -105,4 +102,3 @@ struct racional_interface {
 };
 
 #endif /* RACIONAL_H */
-
